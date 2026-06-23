@@ -5,6 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>下請け脱却プロジェクトTEAMOO | 無料個別相談</title>
   <meta name="description" content="建築業の個人事業主・小規模事業者向け。下請け依存から抜け出し、元請け案件を増やすための北野の無料個別相談LP。">
+  <script async src="https://tag.flvcdn.net/lytag.js"></script>
+  <script>
+    window.lyDataLayer = window.lyDataLayer || [];
+    function lytag() { lyDataLayer.push(Array.from(arguments)); }
+    lytag({
+      type: "init",
+      tagId: "b88ef2e1-3702-4766-bd37-0adc5e28e270",
+      config: { useCookie: true, useLocalStorage: true }
+    });
+    lytag({ type: "event", eventType: "page_view", tagId: "b88ef2e1-3702-4766-bd37-0adc5e28e270" });
+  </script>
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,"script","https://connect.facebook.net/en_US/fbevents.js");
+    fbq("init", "1334303241968786");
+    fbq("track", "PageView");
+  </script>
+  <!-- End Meta Pixel Code -->
+  <!-- Google Ads tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18194464416"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "AW-18194464416");
+  </script>
+  <!-- Google Analytics 4 tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCETZ28ZRN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-SCETZ28ZRN");
+  </script>
   <style>
     :root {
       --ink: #15212b;
@@ -787,6 +821,7 @@
   </style>
 </head>
 <body>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1334303241968786&ev=PageView&noscript=1" alt=""></noscript>
   <header class="header">
     <div class="wrap header-inner">
       <div class="brand">
@@ -1188,6 +1223,7 @@
         "※日程確定のご返信をお願いします。"
       ].join("\n");
       location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.setTimeout(() => { window.location.href = "thanks.html"; }, 700);
     });
 
     renderDates();
