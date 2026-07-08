@@ -16,12 +16,30 @@
       config: { useCookie: true, useLocalStorage: true }
     });
     lytag({ type: "event", eventType: "page_view", tagId: "b88ef2e1-3702-4766-bd37-0adc5e28e270" });
+
+    document.querySelectorAll("[data-line-register]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (link.getAttribute("href") === "#") {
+          event.preventDefault();
+          alert("LINE公式アカウントURLを設定後、友だち追加画面へ移動します。");
+        }
+      });
+    });
   </script>
   <!-- Meta Pixel Code -->
   <script>
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,"script","https://connect.facebook.net/en_US/fbevents.js");
     fbq("init", "1334303241968786");
     fbq("track", "PageView");
+
+    document.querySelectorAll("[data-line-register]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (link.getAttribute("href") === "#") {
+          event.preventDefault();
+          alert("LINE公式アカウントURLを設定後、友だち追加画面へ移動します。");
+        }
+      });
+    });
   </script>
   <!-- End Meta Pixel Code -->
   <!-- Google Ads tag -->
@@ -31,6 +49,15 @@
     function gtag(){dataLayer.push(arguments);}
     gtag("js", new Date());
     gtag("config", "AW-18194464416");
+
+    document.querySelectorAll("[data-line-register]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (link.getAttribute("href") === "#") {
+          event.preventDefault();
+          alert("LINE公式アカウントURLを設定後、友だち追加画面へ移動します。");
+        }
+      });
+    });
   </script>
   <!-- Google Analytics 4 tag -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-SCETZ28ZRN"></script>
@@ -39,6 +66,15 @@
     function gtag(){dataLayer.push(arguments);}
     gtag("js", new Date());
     gtag("config", "G-SCETZ28ZRN");
+
+    document.querySelectorAll("[data-line-register]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (link.getAttribute("href") === "#") {
+          event.preventDefault();
+          alert("LINE公式アカウントURLを設定後、友だち追加画面へ移動します。");
+        }
+      });
+    });
   </script>
 
   <style>
@@ -278,6 +314,33 @@
     .hero .caption { color:#42636b; }
     @media (max-width:900px) and (min-width:561px) { .hero-person { right:-5%; width:min(570px,55vw); max-height:680px; } }
     @media (max-width:560px) { .hero { background:linear-gradient(180deg,#fff 0%,#effaf8 60%,#d8f2ed 100%); } .hero-person { width:min(360px,86vw); max-height:440px; margin:0 auto 18px; border:0; border-radius:0; filter:brightness(1.32) contrast(.91) saturate(.95) drop-shadow(0 14px 22px rgba(15,82,79,.18)); } }
+
+    /* Complete conversion and portrait clarity revision */
+    .hero-person { z-index:2; opacity:1; filter:brightness(1.1) contrast(1.2) saturate(1.05) drop-shadow(0 3px 0 rgba(255,255,255,.9)) drop-shadow(0 24px 34px rgba(10,48,52,.32)); }
+    .hero-scrim { z-index:1; }
+    .hero-content { z-index:3; }
+    .header-cta { padding:9px 14px; border-radius:8px; color:#fff; text-decoration:none; font-weight:900; white-space:nowrap; }
+    .header-seminar { background:#e65b4f; }
+    .header-line,.line-btn { color:#fff !important; background:#06c755 !important; border-color:#06c755 !important; box-shadow:0 10px 24px rgba(6,199,85,.22); }
+    .contact .section-title { color:#fff; }
+    .contact>.wrap>.eyebrow { color:#073f3c; background:#fff; border-color:#fff; }
+    .line-box { margin-top:24px; padding:22px; border-radius:10px; color:#173b3b; background:#f1fff6; border:2px solid rgba(6,199,85,.42); }
+    .line-box h3 { margin:8px 0 12px; color:#124b35; }
+    .line-kicker { display:inline-block; color:#057a38; font-size:13px; font-weight:900; }
+    .line-benefits { margin:0 0 18px; padding-left:1.25em; }
+    .line-benefits li { margin:7px 0; color:#244d3b; font-weight:800; }
+    .line-register { width:100%; }
+    .fixed-cta { grid-template-columns:1fr 1fr; gap:8px; }
+    @media (max-width:900px) { .nav a:not(.header-cta) { display:none; } }
+    @media (max-width:560px) {
+      .header-inner { align-items:center; }
+      .nav { display:flex; gap:5px; }
+      .nav .header-cta { display:inline-flex; padding:8px 7px; font-size:11px; }
+      .brand { max-width:42%; font-size:13px; }
+      .hero-person { width:min(400px,92vw); max-height:480px; filter:brightness(1.1) contrast(1.18) saturate(1.05) drop-shadow(0 2px 0 rgba(255,255,255,.9)) drop-shadow(0 16px 24px rgba(10,48,52,.28)); }
+      .fixed-cta { display:grid; }
+      .fixed-cta .btn { padding:9px 6px; font-size:13px; }
+    }
   </style>
 </head>
 <body>
@@ -290,7 +353,7 @@
         <a href="#problem">よくある悩み</a>
         <a href="#program">セミナー内容</a>
         <a href="#flow">流れ</a>
-        <a class="mini-cta" href="#contact">無料セミナーへ</a>
+        <a class="header-cta header-seminar" href="#contact">無料セミナー申込</a><a class="header-cta header-line" href="https://lin.ee/pqV1T2f" target="_blank" rel="noopener">LINE友だち追加</a>
       </nav>
     </div>
   </header>
@@ -314,9 +377,9 @@
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
               無料セミナーを予約する
             </a>
-            <a class="btn secondary" href="#program">
+            <a class="btn line-btn" href="https://lin.ee/pqV1T2f" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 5v14l11-7L8 5Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg>
-              セミナー内容を見る
+              LINEで友だちになる
             </a>
           </div>
           <p class="caption">押し売りではありません。まずは受注構造を知るところから始めます。</p>
@@ -523,6 +586,16 @@
             <ul class="list">
               <li><span class="check">✓</span><span>元請化10大特典</span></li>
             </ul>
+            <div class="line-box" id="line-contact">
+              <span class="line-kicker">LINE友だち追加特典</span>
+              <h3>まずはLINEで情報を受け取る</h3>
+              <ul class="line-benefits">
+                <li>元請け化ロードマップPDF</li>
+                <li>営業導線セルフチェックリスト</li>
+                <li>無料セミナー最新日程の優先案内</li>
+              </ul>
+              <a class="btn line-btn line-register" href="https://lin.ee/pqV1T2f" target="_blank" rel="noopener">LINEで友だちになる</a>
+            </div>
           </div>
           <form class="booking-panel" id="consultForm">
             <div class="booking-block">
@@ -573,10 +646,8 @@
   </footer>
 
   <div class="fixed-cta">
-    <a class="btn" href="#contact">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      無料セミナーを申し込む
-    </a>
+    <a class="btn" href="#contact">無料セミナー申込</a>
+    <a class="btn line-btn" href="https://lin.ee/pqV1T2f" target="_blank" rel="noopener">LINE友だち追加</a>
   </div>
 
   <script>
@@ -668,6 +739,15 @@
     });
 
     renderDates();
+
+    document.querySelectorAll("[data-line-register]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        if (link.getAttribute("href") === "#") {
+          event.preventDefault();
+          alert("LINE公式アカウントURLを設定後、友だち追加画面へ移動します。");
+        }
+      });
+    });
   </script>
 </body>
 </html>
