@@ -329,6 +329,7 @@
     .line-kicker { display:inline-block; color:#057a38; font-size:13px; font-weight:900; }
     .line-benefits { margin:0 0 18px; padding-left:1.25em; }
     .line-benefits li { margin:7px 0; color:#244d3b; font-weight:800; }
+    .bonus-preview { display:grid; grid-template-columns:1.1fr 1fr 1fr; gap:9px; margin:16px 0 18px; } .bonus-preview img { display:block; width:100%; aspect-ratio:16/9; object-fit:cover; border:1px solid rgba(9,85,62,.18); border-radius:7px; background:#fff; box-shadow:0 7px 16px rgba(11,72,52,.12); } .bonus-preview figcaption { grid-column:1/-1; margin-top:1px; color:#446257; font-size:12px; text-align:center; }
     .line-register { width:100%; }
     .fixed-cta { grid-template-columns:1fr 1fr; gap:8px; }
     @media (max-width:900px) { .nav a:not(.header-cta) { display:none; } }
@@ -338,6 +339,7 @@
       .nav .header-cta { display:inline-flex; padding:8px 7px; font-size:11px; }
       .brand { max-width:42%; font-size:13px; }
       .hero-person { width:min(400px,92vw); max-height:480px; filter:brightness(1.1) contrast(1.18) saturate(1.05) drop-shadow(0 2px 0 rgba(255,255,255,.9)) drop-shadow(0 16px 24px rgba(10,48,52,.28)); }
+      .bonus-preview { grid-template-columns:1fr 1fr; } .bonus-preview picture:first-of-type { grid-column:1/-1; }
       .fixed-cta { display:grid; }
       .fixed-cta .btn { padding:9px 6px; font-size:13px; }
     }
@@ -594,6 +596,12 @@
                 <li>営業導線セルフチェックリスト</li>
                 <li>無料セミナー最新日程の優先案内</li>
               </ul>
+              <figure class="bonus-preview" aria-label="元請化10大特典の内容イメージ">
+                <picture><img src="assets/line-benefit-cover.jpg" alt="公式LINE限定 元請化10大特典パッケージ表紙" loading="lazy"></picture>
+                <picture><img src="assets/line-benefit-list.jpg" alt="元請化10大特典に含まれる10の武器一覧" loading="lazy"></picture>
+                <picture><img src="assets/line-benefit-roadmap.jpg" alt="元請け化5ステップロードマップ" loading="lazy"></picture>
+                <figcaption>実際にLINE登録特典としてお渡しする資料の一部です</figcaption>
+              </figure>
               <a class="btn line-btn line-register" href="https://lin.ee/pqV1T2f" target="_blank" rel="noopener">LINEで友だちになる</a>
             </div>
           </div>
