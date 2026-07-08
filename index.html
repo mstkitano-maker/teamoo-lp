@@ -343,6 +343,20 @@
       .fixed-cta { display:grid; }
       .fixed-cta .btn { padding:9px 6px; font-size:13px; }
     }
+
+    /* Compact mobile first view: show portrait and headline together */
+    @media (max-width:560px) {
+      .header-inner { min-height:50px; }
+      .brand { line-height:1.12; }
+      .hero { min-height:auto; padding:12px 0 38px; }
+      .hero-person {
+        width:min(300px,76vw);
+        max-height:335px;
+        margin:0 auto 6px;
+      }
+      .hero .eyebrow { margin-bottom:8px; padding:8px 12px; line-height:1.45; }
+      .hero h1 { margin:10px 0 14px; font-size:clamp(30px,10vw,42px); line-height:1.2; }
+    }
   </style>
 </head>
 <body>
