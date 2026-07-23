@@ -253,6 +253,11 @@
     textarea { min-height: 112px; resize: vertical; }
     .form small { color: var(--muted); }
     .booking-panel { display: grid; gap: 18px; padding: 24px; border-radius: 8px; background: #fff; color: var(--ink); box-shadow: var(--shadow); }
+    .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .form-status { margin: 0; padding: 12px 14px; border-radius: 8px; font-size: 14px; line-height: 1.6; }
+    .form-status.is-error { background: rgba(230, 91, 79, .12); color: #b23a30; }
+    .form-status.is-pending { background: rgba(14, 159, 151, .1); color: var(--teal-dark); }
+    #submitBtn[disabled] { opacity: .6; cursor: progress; }
     .booking-block { display: grid; gap: 10px; }
     .booking-title { margin: 0; font-size: 16px; font-weight: 900; }
     .date-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
@@ -637,6 +642,12 @@
             <label>会社名・屋号
               <input name="company" placeholder="株式会社〇〇">
             </label>
+            <label>メールアドレス
+              <input name="email" type="email" autocomplete="email" placeholder="info@example.com" required>
+            </label>
+            <label>電話番号（任意）
+              <input name="phone" type="tel" autocomplete="tel" placeholder="090-1234-5678">
+            </label>
             <label>業種
               <select name="industry" required>
                 <option value="">選択してください</option>
@@ -650,11 +661,14 @@
             <label>現在の悩み
               <textarea name="message" placeholder="例：元請け案件を増やしたいが、営業の始め方がわからない" required></textarea>
             </label>
-            <button class="btn" type="submit">
+            <!-- ボット対策：人には見えない欄。埋まっていたら機械とみなす -->
+            <div class="hp-field" aria-hidden="true"><input name="hp" tabindex="-1" autocomplete="off"></div>
+            <button class="btn" type="submit" id="submitBtn">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v14H4V5Zm0 0 8 8 8-8" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
               この日時で無料セミナーを予約する
             </button>
-            <small>予約内容をメールで送信します。日程確定は返信をもって完了します。</small>
+            <p class="form-status" id="formStatus" role="status" hidden></p>
+            <small>送信後、こちらから日程確定のご連絡を差し上げます。</small>
           </form>
         </div>
       </div>
@@ -677,7 +691,11 @@
     const dateGrid = document.querySelector("#dateGrid");
     const slotGrid = document.querySelector("#slotGrid");
     const bookingSummary = document.querySelector("#bookingSummary");
+    const formStatus = document.querySelector("#formStatus");
+    const submitBtn = document.querySelector("#submitBtn");
     const recipient = "mst.kitano@gmail.com";
+    // 申込受付サーバー（Cloudflare Workers）
+    const ENDPOINT = "https://teamoo-form.mst-consulting.workers.dev/apply";
 
     // 日付ごとに開催時間帯が異なるため、日付→時間帯リストのマップで管理
     const dates = [
@@ -732,15 +750,9 @@
       });
     }
 
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      if (!state.date || !state.slot) {
-        bookingSummary.textContent = "希望日と希望時間を選択してください";
-        bookingSummary.scrollIntoView({ behavior: "smooth", block: "center" });
-        return;
-      }
-
-      const data = new FormData(form);
+    // 申込は受付サーバー（Cloudflare Workers）へ送信して保存する。
+    // 万一サーバーに届かなかった場合のみ、従来どおりメールソフト起動に切り替える。
+    function mailtoFallback(data) {
       const subject = `無料セミナー予約希望 ${state.dateLabel} ${state.slot}`;
       const body = [
         "下請け脱却プロジェクトTEAMOO 無料オンラインセミナー「元請け化の最初の一歩」に申し込みます。",
@@ -748,6 +760,8 @@
         `希望日時: ${state.dateLabel} ${state.slot}開始`,
         `お名前: ${data.get("name") || ""}`,
         `会社名・屋号: ${data.get("company") || ""}`,
+        `メールアドレス: ${data.get("email") || ""}`,
+        `電話番号: ${data.get("phone") || ""}`,
         `業種: ${data.get("industry") || ""}`,
         "希望特典: 元請化10大特典",
         "",
@@ -757,7 +771,50 @@
         "※日程確定のご返信をお願いします。"
       ].join("\n");
       location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.setTimeout(() => { window.location.href = "thanks.html"; }, 700);
+    }
+
+    function showStatus(text, kind) {
+      formStatus.hidden = false;
+      formStatus.textContent = text;
+      formStatus.className = "form-status" + (kind ? " is-" + kind : "");
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!state.date || !state.slot) {
+        bookingSummary.textContent = "希望日と希望時間を選択してください";
+        bookingSummary.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      const data = new FormData(form);
+      submitBtn.disabled = true;
+      showStatus("送信中です…", "pending");
+
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            dateLabel: state.dateLabel,
+            slot: state.slot,
+            name: data.get("name") || "",
+            company: data.get("company") || "",
+            email: data.get("email") || "",
+            phone: data.get("phone") || "",
+            industry: data.get("industry") || "",
+            message: data.get("message") || "",
+            hp: data.get("hp") || ""
+          })
+        });
+        const result = await res.json().catch(() => ({}));
+        if (!res.ok || !result.ok) throw new Error("submit_failed");
+        window.location.href = "thanks.html";
+      } catch (e) {
+        submitBtn.disabled = false;
+        showStatus("送信できませんでした。メールソフトを開きますので、そのまま送信してください。届かない場合はお手数ですがLINEからご連絡ください。", "error");
+        mailtoFallback(data);
+      }
     });
 
     renderDates();
